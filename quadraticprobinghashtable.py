@@ -27,7 +27,7 @@ class QuadraticProbingHashTable(HashTable):
             # if the bucket is empty, the item can be inserted at the at index.
             if type(self.table[bucket]) is EmptyBucket:
                 self.table[bucket] = item
-                return (True, i)
+                return True
             
             # the bucket was occupied, continue probing to next index in table.
             i = i + 1
@@ -35,7 +35,7 @@ class QuadraticProbingHashTable(HashTable):
             buckets_probed = buckets_probed + 1
 
         # the entire table was full and the key could not be inserted.
-        return (False, i)
+        return False
     
     # Removes an item with a matching key from the hashtable.
     def remove(self, key):
@@ -45,14 +45,14 @@ class QuadraticProbingHashTable(HashTable):
         while self.table[bucket] is not self.EMPTY_SINCE_START and buckets_probed < len(self.table):
             if self.table[bucket] == key:
                 self.table[bucket] = self.EMPTY_AFTER_REMOVAL
-                return (True, i)
+                return True
             
             # the bucket was occupied (now or previously), so continue probing.
             i = i + 1
             bucket = (hash(key) + self.c1 * i + self.c2 * i**2) % len(self.table)
             buckets_probed = buckets_probed + 1
         
-        return (False, i)
+        return False
 
     # Searches for an item with a matching key in the hashtable.  Returns the
     # item if ound, or None if not found.
@@ -65,6 +65,7 @@ class QuadraticProbingHashTable(HashTable):
                 return self.table[bucket]
 
             # the bucket was occupied (now or previously), so continue probing.
+            i = i + 1
             bucket = (hash(key) + self.c1 * i + self.c2 * i**2) % len(self.table)
             buckets_probed = buckets_probed + 1
 
