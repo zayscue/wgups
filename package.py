@@ -1,12 +1,10 @@
 class Package:
-    def __init__(self, id, street_address, city, zip_code, weight, deadline, status):
+    def __init__(self, id, delivery_location, deadline, weight, special_notes = None):
         self.id = id
-        self.street_address = street_address
-        self.city = city
-        self.zip_code = zip_code
-        self.weight = weight
+        self.delivery_location = delivery_location
         self.deadline = deadline
-        self.status = status
+        self.weight = weight
+        self.special_notes = special_notes
     
     def __hash__(self):
         return self.id
