@@ -1,10 +1,15 @@
 class Package:
-    def __init__(self, id, delivery_location, deadline, weight, special_notes = None):
-        self.id = id
-        self.delivery_location = delivery_location
+    def __init__(self, package_id, delivery_address, deadline, city, zip_code, weight, delivery_status):
+        self.package_id = package_id
+        self.delivery_address = delivery_address
         self.deadline = deadline
+        self.city = city
+        self.zip_code = zip_code
         self.weight = weight
-        self.special_notes = special_notes
+        self.delivery_status = delivery_status
     
     def __hash__(self):
-        return self.id
+        return hash(self.package_id)
+    
+    def __eq__(self, key):
+        return self.package_id == key
