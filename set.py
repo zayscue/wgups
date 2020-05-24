@@ -48,11 +48,11 @@ class BSTIterator:
         self.node = node
 
     # For Python versions >= 3
-    def __next__(self): 
+    def __next__(self):
         return self.next()
 
     # For Python versions < 3
-    def next(self):              
+    def next(self):
         if self.node == None:
             raise StopIteration
         else:
@@ -76,7 +76,7 @@ class Set:
         while minNode.left != None:
             minNode = minNode.left
         return BSTIterator(minNode)
-    
+
     def add(self, new_element):
         new_elementKey = self.get_key(new_element)
         if self.node_search(new_elementKey) != None:
