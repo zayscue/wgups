@@ -1,3 +1,4 @@
+# Zackery Ayscue 000901676
 class BSTNode:
     def __init__(self, data, parent, left = None, right = None):
         self.data = data

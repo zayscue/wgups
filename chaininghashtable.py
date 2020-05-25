@@ -1,7 +1,7 @@
-from hashtable import HashTable
+# Zackery Ayscue 000901676
 
 # HashTable class using chaining.
-class ChainingHashTable(HashTable):
+class ChainingHashTable(object):
     # Constructor with optional inital capacity parameter.
     # Assigns all buckets with an empty list.
     def __init__(self, inital_capacity=10):

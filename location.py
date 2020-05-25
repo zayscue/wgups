@@ -1,3 +1,4 @@
+# Zackery Ayscue 000901676
 class Location:
     def __init__(self, name, street, city, state, zip_code, graph_index):
         self.name = name

@@ -1,8 +1,8 @@
-from hashtable import HashTable
+# Zackery Ayscue 000901676
 from emptybucket import EmptyBucket
 
 # HashTable class definition using linear probing
-class LinearProbingHashTable(HashTable):
+class LinearProbingHashTable(object):
 
     # Constructor with optional initial capacity. All buckets are
     # assigned with an EmptyBucket() instance called self.EMPTY_SINCE_START.

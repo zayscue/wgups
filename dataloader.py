@@ -1,3 +1,4 @@
+# Zackery Ayscue 000901676
 import csv
 import json
 
@@ -5,6 +6,7 @@ class DataLoader(object):
   def __init__(self):
     super().__init__()
 
+  # read each line of the csv file, parse into list of float values, and append to list
   def load_distances_csv(self, file):
     distances_data = []
 
@@ -19,6 +21,8 @@ class DataLoader(object):
         distances_data.append(distances_row_data_list)
     return distances_data
 
+
+  # read each line of the csv file, parse into dictionary of key value pairs, and append to list
   def load_locations_csv(self, file):
     locations_data = []
     row_index = 0
@@ -37,20 +41,7 @@ class DataLoader(object):
         row_index += 1
     return locations_data
 
-  def load_delivery_rules_csv(self, file):
-    delivery_rules_data = []
-    with open('./data/deliveryrules.csv', newline='', encoding='utf-8-sig') as delivery_rules_file:
-      reader = csv.reader(delivery_rules_file)
-      for row in reader:
-        delivery_rule_data = {
-          'description': row[0].strip(),
-          'package_id': row[1].strip(),
-          'type': row[2].strip(),
-          'data': json.loads(row[3].strip())
-        }
-        delivery_rules_data.append(delivery_rule_data)
-    return delivery_rules_data
-
+  # read each line of the csv file, parse into dictionary of key value pairs, and append to list
   def load_packages_csv(self, file):
     packages_data = []
     with open(file, newline='', encoding='utf-8-sig') as packages_file:
