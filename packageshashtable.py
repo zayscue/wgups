@@ -1,9 +1,9 @@
-from linearprobinghashtable import LinearProbingHashTable
+from chaininghashtable import ChainingHashTable
 from package import Package
 from deliverystatus import AVAILABLE_AT_HUB
 from set import Set
 
-class PackagesHashTable(LinearProbingHashTable):
+class PackagesHashTable(ChainingHashTable):
   def __init__(self, locations, initial_capacity=40):
     self.locations = locations
     super().__init__(initial_capacity)
@@ -32,30 +32,23 @@ class PackagesHashTable(LinearProbingHashTable):
     def get_key(el):
       return el.package_id
     packages_set = Set(get_key)
-    packages_list = list(self.table)
-    for package in packages_list:
-      packages_set.add(package)
+    table = list(self.table)
+    for bucket in table:
+      for package in bucket:
+        packages_set.add(package)
     location_key = (location.street, location.city, location.zip_code)
     packages_subset = packages_set.filter(lambda p : p.delivery_address == location_key and p.truck == None)
     return list(packages_subset)
 
-  def get_available_packages_by_zip_code(self, zip_code):
-    def get_key(el):
-      return el.package_id
-    packages_set = Set(get_key)
-    packages_list = list(self.table)
-    for package in packages_list:
-      packages_set.add(package)
-    packages_subset = packages_set.filter(lambda p : p.delivery_address.zip_code == zip_code and p.truck == None)
-    return list(packages_subset)
 
   def get_available_priority_packages(self):
     def get_key(el):
       return el.package_id
     packages_set = Set(get_key)
-    packages_list = list(self.table)
-    for package in packages_list:
-      packages_set.add(package)
+    table = list(self.table)
+    for bucket in table:
+      for package in bucket:
+        packages_set.add(package)
     def predicate(p):
       return p.deadline != '' and p.truck == None
     packages_subset = packages_set.filter(predicate)
@@ -65,10 +58,36 @@ class PackagesHashTable(LinearProbingHashTable):
     def get_key(el):
       return el.package_id
     packages_set = Set(get_key)
-    packages_list = list(self.table)
-    for package in packages_list:
-      packages_set.add(package)
+    table = list(self.table)
+    for bucket in table:
+      for package in bucket:
+        packages_set.add(package)
     def predicate(p):
       return p.truck == None
     packages_subset = packages_set.filter(predicate)
     return list(packages_subset)
+
+  def find(self, package_id = None, delivery_address = None, deadline = None, city = None, zip_code = None, weight = None, delivery_status = None):
+    def get_key(el):
+      return el.package_id
+    packages_set = Set(get_key)
+    table = list(self.table)
+    for bucket in table:
+      for package in bucket:
+        packages_set.add(package)
+    if package_id != None:
+      packages_set = packages_set.filter(lambda p: p.package_id == package_id)
+    if delivery_address != None:
+      packages_set = packages_set.filter(lambda p: p.delivery_address.street == delivery_address)
+    if deadline != None:
+      packages_set = packages_set.filter(lambda p: p.deadline == deadline)
+    if city != None:
+      packages_set = packages_set.filter(lambda p: p.delivery_address.city == city)
+    if zip_code != None:
+      packages_set = packages_set.filter(lambda p: p.delivery_address.zip_code == zip_code)
+    if weight != None:
+      packages_set = packages_set.filter(lambda p: p.weight == weight)
+    if delivery_status != None:
+      packages_set = packages_set.filter(lambda p: p.delivery_status == delivery_status)
+    return list(packages_set)
+

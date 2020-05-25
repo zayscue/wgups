@@ -10,9 +10,11 @@ class Location:
     def __hash__(self):
         return hash((self.street, self.city, self.zip_code))
 
-    def __eq__(self, key):
-        result = self.street == key[0] and self.city == key[1] and self.zip_code == key[2]
-        return result
+    def __eq__(self, value):
+        if isinstance(value, Location) == True:
+            return self.street == value.street and self.city == value.city and self.zip_code == value.zip_code
+        else:
+            return self.street == value[0] and self.city == value[1] and self.zip_code == value[2]
 
     def __str__(self):
         return '{}, {}, {} {}'.format(self.street, self.city, self.state, self.zip_code)

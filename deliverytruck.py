@@ -8,6 +8,7 @@ class DeliveryTruck:
     self.priority_packages = {}
     self.normal_packages = []
     self.package_limit = 16
+    self.route = None
 
   def add_priority_package(self, priority_package):
     deadline = priority_package.deadline
