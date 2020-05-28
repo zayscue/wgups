@@ -11,10 +11,8 @@ class WGUPS(object):
     def __init__(self, distances, locations, packages):
         super().__init__()
         self.packages = packages
-        self.distances = distances
-        self.locations = locations
 
-        hub = self.locations.search(
+        hub = locations.search(
             ('4001 South 700 East', 'Salt Lake City', '84107'))
 
         truck_one = Truck('1', distances, hub)
