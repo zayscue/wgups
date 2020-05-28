@@ -12,6 +12,8 @@ class Location:
         return hash((self.street, self.city, self.zip_code))
 
     def __eq__(self, value):
+        if value == None:
+            return False
         if isinstance(value, Location) == True:
             return self.street == value.street and self.city == value.city and self.zip_code == value.zip_code
         else:

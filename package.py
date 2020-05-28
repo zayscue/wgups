@@ -7,6 +7,8 @@ class Package:
         self.weight = weight
         self.delivery_status = delivery_status
         self.truck = None
+        self.left_hub_at = None
+        self.delivered_at = None
 
     def __hash__(self):
         return hash(self.package_id)
