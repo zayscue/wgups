@@ -15,6 +15,7 @@ class WGUPS(object):
         hub = locations.search(
             ('4001 South 700 East', 'Salt Lake City', '84107'))
 
+        # construct the three truck instances
         truck_one = Truck('1', distances, hub)
         truck_two = Truck('2', distances, hub)
         truck_three = Truck('3', distances, hub)
@@ -23,6 +24,7 @@ class WGUPS(object):
             '2': truck_two,
             '3': truck_three
         }
+        # based on specific rules map certain packages to certain trucks
         self.package_map = {
             '1': ['13', '14', '15', '16', '19', '20'],
             '2': ['3', '18', '36', '38', '6', '25', '28', '32'],
@@ -75,21 +77,27 @@ class WGUPS(object):
         print('Total miles traveled {}'.format(round(
             self.trucks['1'].traveled + self.trucks['2'].traveled + self.trucks['3'].traveled, 2)))
 
+        # prompt user for input to query the results
         while True:
             query = input(
                 'Enter time in HH:MM AM/PM format to query package statuses at a certain time: ')
             query_time = Time(query)
             self.print_package_statuses(query_time)
 
+    # print package statuses at certain times
     def print_package_statuses(self, time):
+        # load up a list of packages
         ls = []
         for i in range(0, len(self.packages.table)):
             for j in range(0, len(self.packages.table[i])):
                 ls.append(self.packages.table[i][j])
-
+        # define a get key function for the sort function
         def get_key(p):
             return int(p.package_id)
+
+        # sort packages by the package id
         packages = sorted(ls, key=get_key)
+        # loop through and print package statuses based on event time stamps
         for package in packages:
             if package.left_hub_at > time:
                 print('At {} package {} was {}'.format(
